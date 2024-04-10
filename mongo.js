@@ -19,7 +19,7 @@ if (process.argv.length === 3) {
         number: String,
     })
     
-    const Person = mongoose.model('Person', personSchema)
+    const Person = mongoose.model('Person', personSchema, 'people')
     
     Person.find({}).then(result => {
         result.forEach(person => {
@@ -43,7 +43,7 @@ if (process.argv.length === 5) {
         number: String,
     })
 
-    const Person = mongoose.model('Person', personSchema)
+    const Person = mongoose.model('Person', personSchema, 'people')
 
     const person = new Person({
         name: process.argv[3],

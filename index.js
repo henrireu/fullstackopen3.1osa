@@ -47,9 +47,11 @@ let persons = [
     response.send('<h1>Localhost:3001</h1>')
   })
   
-  /*app.get('/api/persons', (request, response) => {
-    response.json(persons)
-  })*/
+  app.get('/api/persons', (request, response) => {
+    Person.find({}).then(persons => {
+      response.json(persons)
+    })
+  })
 
   app.get('/info', (request, response) => {
     const teksti1 = `<p>Phonebook has info for ${persons.length} people </p>`

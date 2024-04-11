@@ -20,22 +20,13 @@ morgan.token('request-body', function (request, response) {
 
 app.use(morgan(':id :method :url :status :res[content-length] - :response-time ms :request-body'))
   
-  app.get('/api/persons', (request, response, error) => {
+  app.get('/api/persons', (request, response, next) => {
     Person.find({})
       .then(persons => {
         response.json(persons)
       })
       .catch(error => next(error))
   })
-
-  /*app.get('/info', (request, response) => {
-    const size = { $size: Person}
-    console.log("size: ", size)
-    const teksti1 = `<p>Phonebook has info for ${size} people </p>`
-    const aika = new Date()
-    
-    response.send(teksti1 + aika)
-  })*/
 
   app.get('/info', (request, response, error) => {
     Person.countDocuments({})
@@ -103,6 +94,7 @@ app.use(morgan(':id :method :url :status :res[content-length] - :response-time m
   })
 
   const errorHandler = (error, request, response, next) => {
+    console.log("testi")
     console.error(error.message)
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
